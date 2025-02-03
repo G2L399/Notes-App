@@ -1,0 +1,40 @@
+form {
+  display: grid;
+  gap: 1rem;
+}
+
+.form-group {
+  display: grid;
+  gap: 0.5rem;
+}
+
+.form-group label {
+  font-size: 1rem;
+  color: white;
+}
+
+.form-group input,
+.form-group textarea {
+  background-color: rgb(101, 101, 101);
+  padding: 0.75rem;
+  border: 1px solid rgb(69, 69, 69);
+  border-radius: 4px;
+  font-size: 1rem;
+  color: aliceblue;
+}
+
+.submitButton button {
+  background-color: #101610;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  width: 100%;
+  padding: 0.5rem;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: background-color 0.3s ease;
+}
+
+.submitButton button:hover {
+  background-color: #252f25;
+}
