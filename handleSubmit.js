@@ -7,10 +7,10 @@ export function handleSubmitAdd() {
 
   const newNote = {
     id,
-    field1: title,
-    field2: content,
-    created_at: now,
-    updated_at: now,
+    title,
+    body: content,
+    createdAt: now,
+    archived: false,
   };
 
   notes.push(newNote);
@@ -26,12 +26,9 @@ export function handleSubmitEdit() {
   const title = this.inputTitle.value;
   const content = this.inputContent.value;
   let notes = this.getNotes();
-  const now = new Date().toISOString();
 
   notes = notes.map((note) =>
-    note.id === this.editingId
-      ? { ...note, field1: title, field2: content, updated_at: now }
-      : note
+    note.id === this.editingId ? { ...note, title, body: content } : note
   );
 
   this.saveNotes(notes);

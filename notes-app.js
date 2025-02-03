@@ -124,8 +124,8 @@ class NotesApp extends HTMLElement {
     const notes = this.getNotes();
     const note = notes.find((n) => n.id === id);
     if (note) {
-      this.viewTitle.textContent = note.field1;
-      this.viewContent.textContent = note.field2;
+      this.viewTitle.textContent = note.title;
+      this.viewContent.textContent = note.body;
       this.showViewModal();
     }
   }
