@@ -1,3 +1,5 @@
+import { createElement } from "./crud.js";
+
 export class NotesModal extends HTMLElement {
   constructor() {
     super();
@@ -6,39 +8,66 @@ export class NotesModal extends HTMLElement {
   }
   connectedCallback() {
     this.shadowRoot.innerHTML = /*html*/ `
-    <link rel="stylesheet" href="./notes.css" />
-    <div class="modalParent" popover="manual" id="modal">
-        <div class="modal">
-          <div class="modal-content">
-            <header>
-              <h2>Add New Note</h2>
-              <button class="close-button" popovertarget="#modal">
-                &times;
-              </button>
-            </header>
-            <form id="noteForm">
-              <div class="form-group">
-                <label for="title">Title:</label>
-                <input
-                  type="text"
-                  id="title"
-                  minlength="4"
-                  name="title"
-                  required
-                />
-              </div>
-              <div class="form-group">
-                <label for="content">Content:</label>
-                <textarea id="content" name="content" required></textarea>
-              </div>
-              <div class="submitButton">
-                <button type="submit">Save</button>
-              </div>
-            </form>
-          </div>
-        </div>
-      </div>
+
     `;
+    const styles = createElement("link", {
+      rel: "stylesheet",
+      href: "./notes.css",
+    });
+    this.shadowRoot.appendChild(styles);
+
+    const modalParent = createElement("div", {
+      className: "modalParent",
+      id: "modal",
+      popover: "manual",
+    });
+    const modal = createElement("div", { className: "modal" });
+    const modalContent = createElement("div", { className: "modal-content" });
+    const header = createElement("header");
+    const modalTitle = createElement("h2", { id: "modalTitle" });
+    const closeButton = createElement(
+      "button",
+      { className: "close-button", popovertarget: "#modal" },
+      "\u00D7"
+    );
+    const form = createElement("form", {
+      id: "noteForm",
+      className: "form-group",
+    });
+    const titleLabel = createElement("label", { htmlFor: "title" }, "Title");
+    const title = createElement("input", {
+      type: "text",
+      id: "title",
+      minlength: "4",
+      name: "title",
+      required: true,
+    });
+    const contentLabel = createElement(
+      "label",
+      { htmlFor: "content" },
+      "Content"
+    );
+    const content = createElement("textarea", {
+      id: "content",
+      name: "content",
+      required: true,
+    });
+    const submitButton = createElement("div", { className: "submitButton" });
+    const saveButton = createElement("button", { type: "submit" }, "Save");
+
+    header.appendChild(modalTitle);
+    header.appendChild(closeButton);
+    modalContent.appendChild(header);
+    modalContent.appendChild(form);
+    form.appendChild(titleLabel);
+    form.appendChild(title);
+    form.appendChild(contentLabel);
+    form.appendChild(content);
+    form.appendChild(submitButton);
+    submitButton.appendChild(saveButton);
+    modal.appendChild(modalContent);
+    modalParent.appendChild(modal);
+    this.shadowRoot.appendChild(modalParent);
 
     this.modal = this.shadowRoot.getElementById("modal");
     this.inputTitle = this.shadowRoot.getElementById("title");
