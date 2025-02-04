@@ -42,12 +42,12 @@ export class NotesFull extends HTMLElement {
     this.viewModal.hidePopover();
   }
 
-  showFullNote(id) {
-    const notes = getNotes();
-    const note = notes.find((n) => n.id === id);
-    if (note) {
-      this.viewTitle.textContent = note.title;
-      this.viewContent.textContent = note.body;
+  showFullNote(title, body) {
+    // const notes = getNotes();
+    // const note = notes.find((n) => n.id === id);
+    if (title && body) {
+      this.viewTitle.textContent = title;
+      this.viewContent.textContent = body;
       this.showViewModal();
     }
   }
