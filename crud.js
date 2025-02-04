@@ -127,9 +127,13 @@ function createNoteCard(note) {
 
   return card;
 }
-/** 
-  @returns {HTMLElement}
-*/
+/**
+ * @description Creates an HTML element
+ * @param {string} tag - The tag name of the element to create
+ * @param {object} props - The properties of the element to create
+ * @param {...*} children - The children of the element to create
+ * @returns {HTMLElement}
+ */
 export const createElement = (tag, props = {}, ...children) => {
   const element = document.createElement(tag);
 

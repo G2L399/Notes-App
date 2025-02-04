@@ -1,4 +1,3 @@
-import { createElement, getNotes } from "./crud.js"; // Add this import
 import { modalParent, styles } from "./notes-full-element.js";
 
 export class NotesFull extends HTMLElement {
@@ -9,7 +8,6 @@ export class NotesFull extends HTMLElement {
   connectedCallback() {
     this.shadowRoot.innerHTML = ``;
     this.shadowRoot.appendChild(styles);
-
     this.shadowRoot.appendChild(modalParent);
 
     this.viewModal = this.shadowRoot.getElementById("viewModal");
@@ -33,7 +31,6 @@ export class NotesFull extends HTMLElement {
   hideViewModal() {
     this.viewModal.hidePopover();
   }
-
   showFullNote(title, body) {
     if (title && body) {
       this.viewTitle.textContent = title;

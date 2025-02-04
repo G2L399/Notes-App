@@ -12,12 +12,13 @@ class NotesApp extends HTMLElement {
   }
 
   connectedCallback() {
-    this.shadowRoot.innerHTML = /*html */ `
-      <link rel="stylesheet" href="./notes.css">
+    this.shadowRoot.innerHTML = /*html*/ `
+      <link rel="stylesheet" href="./notes.css" />
       <header>
         <h1>Notes App</h1>
         <button class="addNewNote" popovertarget="#modal">Add Notes</button>
       </header>
+
       <main id="notes"></main>
       <!-- Modal for adding/editing notes -->
       <div class="modalParent" popover="manual" id="modal">
@@ -25,12 +26,20 @@ class NotesApp extends HTMLElement {
           <div class="modal-content">
             <header>
               <h2>Add New Note</h2>
-              <button class="close-button" popovertarget="#modal">&times;</button>
+              <button class="close-button" popovertarget="#modal">
+                &times;
+              </button>
             </header>
             <form id="noteForm">
               <div class="form-group">
                 <label for="title">Title:</label>
-                <input type="text" id="title" minlength="4" name="title" required />
+                <input
+                  type="text"
+                  id="title"
+                  minlength="4"
+                  name="title"
+                  required
+                />
               </div>
               <div class="form-group">
                 <label for="content">Content:</label>
@@ -44,7 +53,6 @@ class NotesApp extends HTMLElement {
         </div>
       </div>
       <slot></slot>
-
     `;
 
     this.modal = this.shadowRoot.getElementById("modal");
