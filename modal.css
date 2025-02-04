@@ -28,9 +28,9 @@
   grid-template-columns: 1fr auto;
   align-items: center;
   margin-bottom: 1.5rem;
-  padding: 0 !important;
-  padding-left: 1rem !important;
-  padding-right: 1rem !important;
+  padding: 1rem;
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
 }
 
 .modal-content header h2 {
@@ -55,8 +55,9 @@
   overflow: auto;
 }
 #viewContent {
+  font-size: 1.5rem;
   color: white;
-  word-break: break-all;
+  white-space: pre-wrap;
+  word-wrap: break-word;
   max-height: 350px;
-  overflow: auto;
 }

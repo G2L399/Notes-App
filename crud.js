@@ -66,36 +66,94 @@ export function renderNotes() {
 
   this.main.innerHTML = "";
   notes.forEach((note) => {
-    const card = document.createElement("div");
-    card.classList.add("note-card");
-    card.dataset.id = note.id;
-    card.innerHTML = /*html*/ `
-    <h3>${note.title}</h3>
-    <p>${note.body}</p>
-    <small>Created: ${new Date(note.createdAt).toLocaleString()}</small>
-    <small>Archived: ${note.archived}</small>
-    <div style="margin-top: 0.5rem;">
-      <button class="edit-button">Edit</button>
-      <button class="delete-button">Delete</button>
-    </div>
-    `;
-    card.addEventListener("click", (event) => {
-      if (
-        !event.target.classList.contains("edit-button") &&
-        !event.target.classList.contains("delete-button")
-      ) {
-        this.notesFull.showFullNote(note.title, note.body);
-      }
-    });
-    card.querySelector(".edit-button").addEventListener("click", (event) => {
-      event.stopPropagation();
-      this.editNote(note.id);
-    });
-    card.querySelector(".delete-button").addEventListener("click", (event) => {
-      event.stopPropagation();
-      this.deleteNote(note.id);
-    });
-
+    const card = createNoteCard.call(this, note);
     this.main.appendChild(card);
   });
 }
+
+function createNoteCard(note) {
+  const card = createElement("div", {
+    className: "note-card",
+    dataset: { id: note.id },
+  });
+
+  const titleEl = createElement("h3", {}, note.title);
+  const bodyEl = createElement("p", {}, note.body);
+  const createdEl = createElement(
+    "small",
+    {},
+    `Created: ${new Date(note.createdAt).toLocaleString()}`
+  );
+  const archivedEl = createElement("small", {}, `Archived: ${note.archived}`);
+
+  const editButton = createElement(
+    "button",
+    { className: "edit-button" },
+    "Edit"
+  );
+  const deleteButton = createElement(
+    "button",
+    { className: "delete-button" },
+    "Delete"
+  );
+  const buttonContainer = createElement(
+    "div",
+    { className: "button-container" },
+    editButton,
+    deleteButton
+  );
+
+  card.append(titleEl, bodyEl, createdEl, archivedEl, buttonContainer);
+
+  card.addEventListener("click", (event) => {
+    if (
+      !event.target.classList.contains("edit-button") &&
+      !event.target.classList.contains("delete-button")
+    ) {
+      this.notesFull.showFullNote(note.title, note.body);
+    }
+  });
+
+  editButton.addEventListener("click", (event) => {
+    event.stopPropagation();
+
+    this.editNote(note.id);
+  });
+
+  deleteButton.addEventListener("click", (event) => {
+    event.stopPropagation();
+    this.deleteNote(note.id);
+  });
+
+  return card;
+}
+/** 
+  @returns {HTMLElement}
+*/
+export const createElement = (tag, props = {}, ...children) => {
+  const element = document.createElement(tag);
+
+  Object.keys(props).forEach((key) => {
+    if (key === "className") {
+      element.className = props[key];
+    } else if (key === "dataset") {
+      Object.entries(props[key]).forEach(([dataKey, dataValue]) => {
+        element.dataset[dataKey] = dataValue;
+      });
+    } else if (key === "style") {
+      Object.assign(element.style, props[key]);
+    } else {
+      element[key] = props[key];
+    }
+  });
+
+  children.forEach((child) => {
+    if (typeof child === "string") {
+      element.appendChild(document.createTextNode(child));
+    } else if (child instanceof Node) {
+      element.appendChild(child);
+    }
+  });
+
+  return element;
+};
