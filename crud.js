@@ -84,7 +84,7 @@ export function renderNotes() {
         !event.target.classList.contains("edit-button") &&
         !event.target.classList.contains("delete-button")
       ) {
-        this.showFullNote(note.id);
+        this.notesFull.showFullNote(note.id);
       }
     });
     card.querySelector(".edit-button").addEventListener("click", (event) => {

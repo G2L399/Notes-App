@@ -52,6 +52,7 @@
   overflow: auto;
 }
 #viewContent {
+  color: white;
   word-break: break-all;
   max-height: 350px;
   overflow: auto;

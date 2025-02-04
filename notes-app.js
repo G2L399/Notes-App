@@ -1,9 +1,12 @@
 import * as notesMethods from "./crud.js";
 import * as handleSubmit from "./handleSubmit.js";
+import { NotesFull } from "./notes-full.js";
 
 class NotesApp extends HTMLElement {
   constructor() {
     super();
+    this.notesFull = this.querySelector("notes-full");
+
     this.attachShadow({ mode: "open" });
     this.editingId = null;
   }
@@ -40,24 +43,11 @@ class NotesApp extends HTMLElement {
           </div>
         </div>
       </div>
+      <slot></slot>
 
-      <div class="modalParent" popover="manual" id="viewModal">
-        <div class="modal">
-          <div class="modal-content">
-            <header>
-              <h2 id="viewTitle"></h2>
-              <button class="close-view-button" popovertarget="#viewModal">&times;</button>
-            </header>
-            <p id="viewContent"></p>
-          </div>
-        </div>
-      </div>
     `;
 
     this.modal = this.shadowRoot.getElementById("modal");
-    this.viewModal = this.shadowRoot.getElementById("viewModal");
-    this.viewTitle = this.shadowRoot.getElementById("viewTitle");
-    this.viewContent = this.shadowRoot.getElementById("viewContent");
 
     this.inputTitle = this.shadowRoot.getElementById("title");
     this.inputContent = this.shadowRoot.getElementById("content");
@@ -66,7 +56,6 @@ class NotesApp extends HTMLElement {
     this.modalTitle = this.shadowRoot.querySelector(".modal-content header h2");
     this.addButton = this.shadowRoot.querySelector(".addNewNote");
     this.closeButton = this.shadowRoot.querySelector(".close-button");
-    this.closeViewButton = this.shadowRoot.querySelector(".close-view-button");
 
     this.addButton.addEventListener("click", () => {
       this.modalTitle.textContent = "Add New Note";
@@ -78,10 +67,6 @@ class NotesApp extends HTMLElement {
     this.closeButton.addEventListener("click", () => {
       this.editingId = null;
       this.hideModal();
-    });
-
-    this.closeViewButton.addEventListener("click", () => {
-      this.hideViewModal();
     });
 
     this.form.addEventListener("submit", (e) => {
@@ -107,30 +92,12 @@ class NotesApp extends HTMLElement {
   showModal() {
     this.modal.showPopover();
   }
-
-  showViewModal() {
-    this.viewModal.showPopover();
-  }
-
   hideModal() {
     this.modal.hidePopover();
-  }
-
-  hideViewModal() {
-    this.viewModal.hidePopover();
-  }
-
-  showFullNote(id) {
-    const notes = this.getNotes();
-    const note = notes.find((n) => n.id === id);
-    if (note) {
-      this.viewTitle.textContent = note.title;
-      this.viewContent.textContent = note.body;
-      this.showViewModal();
-    }
   }
 }
 Object.assign(NotesApp.prototype, notesMethods);
 Object.assign(NotesApp.prototype, handleSubmit);
 
 customElements.define("notes-app", NotesApp);
+customElements.define("notes-full", NotesFull);
