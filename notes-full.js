@@ -28,6 +28,12 @@ export class NotesFull extends HTMLElement {
     this.closeViewButton.addEventListener("click", () => {
       this.hideViewModal();
     });
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape") {
+        this.hideViewModal();
+        this.editingId = null;
+      }
+    });
   }
   showViewModal() {
     this.viewModal.showPopover();

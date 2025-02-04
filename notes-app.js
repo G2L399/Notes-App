@@ -81,7 +81,6 @@ class NotesApp extends HTMLElement {
     document.addEventListener("keydown", (e) => {
       if (e.key === "Escape") {
         this.hideModal();
-        this.hideViewModal();
         this.editingId = null;
       }
     });
