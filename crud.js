@@ -47,13 +47,13 @@ export function editNote(id) {
   console.log(id);
 
   this.editingId = id;
-  this.modalTitle.textContent = "Edit Note";
+  this.notesModal.modalTitle.textContent = "Edit Note";
   this.showModal();
   const notes = this.getNotes();
   const note = notes.find((n) => n.id === id);
   if (note) {
-    this.inputTitle.value = note.title;
-    this.inputContent.value = note.body;
+    this.notesModal.inputTitle.value = note.title;
+    this.notesModal.inputContent.value = note.body;
   }
 }
 

@@ -1,6 +1,6 @@
 export function handleSubmitAdd() {
-  const title = this.inputTitle.value;
-  const content = this.inputContent.value;
+  const title = this.notesModal.inputTitle.value;
+  const content = this.notesModal.inputContent.value;
   const notes = this.getNotes();
   const now = new Date().toISOString();
   const id = crypto.randomUUID();
@@ -16,15 +16,15 @@ export function handleSubmitAdd() {
   notes.push(newNote);
   this.saveNotes(notes);
   this.renderNotes();
-  this.hideModal();
-  this.form.reset();
+  this.notesModal.hideModal();
+  this.notesModal.form.reset();
 }
 
 export function handleSubmitEdit() {
   if (!this.editingId) return;
 
-  const title = this.inputTitle.value;
-  const content = this.inputContent.value;
+  const title = this.notesModal.inputTitle.value;
+  const content = this.notesModal.inputContent.value;
   let notes = this.getNotes();
 
   notes = notes.map((note) =>
@@ -33,7 +33,7 @@ export function handleSubmitEdit() {
 
   this.saveNotes(notes);
   this.renderNotes();
-  this.hideModal();
-  this.form.reset();
+  this.notesModal.hideModal();
+  this.notesModal.form.reset();
   this.editingId = null;
 }
